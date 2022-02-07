@@ -18,7 +18,7 @@ This package makes creating drag and drop matching UI easier.
 Create drag and drop UI's with few lines of code
 Useful for games and other interactive apps
 
-![](./screenshot.jpg)
+![](./screenshot.gif)
 
 
 ## Getting started
