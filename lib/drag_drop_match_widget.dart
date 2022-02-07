@@ -3,15 +3,31 @@ library drag_drop_match_widget;
 import 'package:flutter/material.dart';
 
 class DragDropItem {
+  //unique key for matching source and target
+  //Accepts string
   final String key;
+  //Value of a matching target
+  //Accepts string
   final String value;
+  //Widget to put into draggable
+  //Any valid widget, else Text widget is used
   Widget? dragChild;
+  //Widget to put into drop field/target
+  //Any valid widget, else Text widget is used
   Widget? dropChild;
+  //Icon for widget , [Optional]
   IconData? iconData;
+  //Feedback widget on dragging, at the pointer
   Widget? feedbackItem;
+  //Child to leave at source when dragging
   Widget? childWhenDragging;
+  //whether a drop target will accept this model or not
+  //[boolean]
   bool willAccept = true;
+  //whether the model is accepted or not
+  //locked if isAccepted is true, else not
   bool isAccepted;
+
   DragDropItem(
       {required this.key,
       required this.value,
@@ -117,15 +133,8 @@ class _DragDropWidgetState extends State<DragDropWidget> {
                 setState(() {
                   item.isAccepted = true;
                 });
-
                 print("ACCEPTED");
-
                 widget.onMatched(receivedItem);
-
-                // item.dragChild = Text(
-                //   "✅",
-                //   style: acceptedStyle,
-                // );
               }
             },
             onLeave: (receivedItem) {

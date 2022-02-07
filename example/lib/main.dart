@@ -1,5 +1,4 @@
 import 'package:drag_drop_match_widget/drag_drop_match_widget.dart';
-import 'package:drag_drop_match_widget/drag_drop_model.dart';
 import 'package:flutter/material.dart';
 
 final items = [
@@ -79,10 +78,8 @@ class _MyAppState extends State<MyApp> {
               },
               onMisMatched: (DragDropItem? item) {
                 print("Mismatched");
-
                 print(item);
               }),
-        )); //(title: 'Kids Games'),
-    // );
+        ));
   }
 }
