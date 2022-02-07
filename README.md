@@ -10,30 +10,82 @@ For general information about developing packages, see the Dart guide for
 and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+This package makes creating drag and drop matching UI easier.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Create drag and drop UI's with few lines of code
+Useful for games and other interactive apps
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Add the packages to pubspec and get started.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
 ```dart
-const like = 'sample';
+
+final items = [
+  DragDropItem(
+      key: "apple",
+      value: "apple",
+      dragChild: Text(
+        "APPLE",
+        style: TextStyle(fontSize: 30),
+      ),
+      dropChild: Text(
+        "🍎",
+        style: TextStyle(fontSize: 50),
+      ),
+      iconData: Icons.one_k),
+  DragDropItem(
+      key: "ball",
+      value: "Ball",
+      dragChild: Text(
+        "BALL",
+        style: TextStyle(fontSize: 30),
+      ),
+      dropChild: Text(
+        "⚽",
+        style: TextStyle(fontSize: 50),
+      ),
+      iconData: Icons.one_k),
+  DragDropItem(
+      key: "cat",
+      value: "Cat",
+      dragChild: Text(
+        "CAT",
+        style: TextStyle(fontSize: 30),
+      ),
+      dropChild: Text(
+        "😺",
+        style: TextStyle(fontSize: 50),
+      ),
+      iconData: Icons.one_k)
+];
+
+Use the widget as,
+
+DragDropWidget(
+              items: items,
+              //on  Matched event
+              onMatched: (DragDropItem? item) {
+                score += 10;
+                setState(() {});
+                matched.add(item);
+                
+                if (matched.length == items.length) {
+                  print("GAME OVER");
+                }
+              },
+              //on mismatched event
+              onMisMatched: (DragDropItem? item) {
+                print("Mismatched");
+                print(item);
+              });
+
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+To find more information about the package visit https://github.com/sabine33/flutter_drag_drop_match_widget
