@@ -67,10 +67,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    map.entries.forEach((element) {
-      items.add(DragDropItem.fromMap(element)
-        ..defaultTextStyle = TextStyle(fontSize: 60, color: Colors.red));
-    });
+    items_2.shuffle();
+    // map.entries.forEach((element) {
+    //   items.add(DragDropItem.fromMap(element)
+    //     ..defaultTextStyle = TextStyle(fontSize: 20, color: Colors.red));
+    // });
   }
 
   @override
@@ -87,7 +88,7 @@ class _MyAppState extends State<MyApp> {
           ),
           body: Container(
             child: DragDropWidget(
-                items: items,
+                items: items_2,
                 onMatched: (DragDropItem? item) {
                   score += 10;
                   setState(() {});
