@@ -27,6 +27,8 @@ class DragDropItem {
   //whether the model is accepted or not
   //locked if isAccepted is true, else not
   bool isAccepted;
+  //default text style for a drag/drop children
+  TextStyle? defaultTextStyle;
 
   DragDropItem(
       {required this.key,
@@ -36,14 +38,11 @@ class DragDropItem {
       this.dropChild,
       this.feedbackItem,
       this.childWhenDragging,
-      this.isAccepted = false}) {
-    feedbackItem =
-        this.dragChild ?? Icon(iconData, size: 30, color: Colors.teal);
-    dragChild = this.dragChild ??
-        Text(key,
-            style: TextStyle(
-              fontSize: 20,
-            ));
+      this.isAccepted = false,
+      this.defaultTextStyle}) {
+    feedbackItem = dragChild ?? Icon(iconData, size: 30, color: Colors.teal);
+    dragChild = dragChild ??
+        Text(key, style: TextStyle(fontSize: 20, color: Colors.red));
     dropChild = dropChild ??
         Text(value,
             style: TextStyle(
@@ -54,18 +53,22 @@ class DragDropItem {
             style: TextStyle(
               fontSize: 20,
             ));
+    this.defaultTextStyle = _defaultTextStyle;
   }
 
   factory DragDropItem.fromMap(MapEntry map) {
     return DragDropItem(
         key: map.key,
         value: map.value,
-        dragChild: Text(map.key),
-        dropChild: Text(map.value));
+        dragChild: Text(map.key, style: _defaultTextStyle),
+        dropChild: Text(map.value, style: _defaultTextStyle));
   }
 }
 
+//dragdrop action , matched or not matched
 typedef DragDropAction = void Function(DragDropItem item);
+//drag drop default child style
+final _defaultTextStyle = TextStyle(fontSize: 40);
 
 ///Drag drop widget for creating match views
 ///Input your stuffs on [items]
@@ -91,8 +94,6 @@ class DragDropWidget extends StatefulWidget {
 
 class _DragDropWidgetState extends State<DragDropWidget> {
   //The backdrop style : after drag drop is accepted
-  final acceptedBackdropStyle =
-      TextStyle(fontSize: 40, color: Colors.greenAccent);
 
   //list for another side for matching
   List<DragDropItem> drop_lists = [];
@@ -107,9 +108,8 @@ class _DragDropWidgetState extends State<DragDropWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-            child: Row(
+    return Material(
+        child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
@@ -118,10 +118,10 @@ class _DragDropWidgetState extends State<DragDropWidget> {
             margin: const EdgeInsets.all(8.0),
             child: Draggable<DragDropItem>(
                 data: item,
-                childWhenDragging: item.dragChild,
+                childWhenDragging: item.dragChild!,
                 feedback: item.feedbackItem!,
                 child: item.isAccepted == true
-                    ? Text("✅", style: acceptedBackdropStyle)
+                    ? Text("✅", style: item.defaultTextStyle)
                     : item.dragChild!),
           );
         }).toList()),
@@ -157,6 +157,6 @@ class _DragDropWidgetState extends State<DragDropWidget> {
           );
         }).toList())
       ],
-    )));
+    ));
   }
 }

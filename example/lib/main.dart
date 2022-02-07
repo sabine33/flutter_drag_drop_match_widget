@@ -1,7 +1,17 @@
 import 'package:drag_drop_match_widget/drag_drop_match_widget.dart';
 import 'package:flutter/material.dart';
 
-final items = [
+var map = {
+  'APPLE': '🍎',
+  'BALL': '⚽',
+  'CAT': '😺',
+  'DOG': '🐶',
+  'ELEPHANT': '🐘',
+  'FOX': '🦊',
+  'FISH': '🐟',
+};
+
+var items_2 = [
   DragDropItem(
       key: "apple",
       value: "apple",
@@ -51,13 +61,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  List<DragDropItem> items = [];
   int score = 0;
-
   var matched = [];
+
+  @override
+  void initState() {
+    map.entries.forEach((element) {
+      items.add(DragDropItem.fromMap(element)
+        ..defaultTextStyle = TextStyle(fontSize: 60, color: Colors.red));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Matching Game',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -66,20 +85,22 @@ class _MyAppState extends State<MyApp> {
           appBar: AppBar(
             title: Text("Score $score"),
           ),
-          body: DragDropWidget(
-              items: items,
-              onMatched: (DragDropItem? item) {
-                score += 10;
-                setState(() {});
-                matched.add(item);
-                if (matched.length == items.length) {
-                  print("GAME OVER");
-                }
-              },
-              onMisMatched: (DragDropItem? item) {
-                print("Mismatched");
-                print(item);
-              }),
+          body: Container(
+            child: DragDropWidget(
+                items: items,
+                onMatched: (DragDropItem? item) {
+                  score += 10;
+                  setState(() {});
+                  matched.add(item);
+                  if (matched.length == items.length) {
+                    print("GAME OVER");
+                  }
+                },
+                onMisMatched: (DragDropItem? item) {
+                  print("Mismatched");
+                  print(item);
+                }),
+          ),
         ));
   }
 }
