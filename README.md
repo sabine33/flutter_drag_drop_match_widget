@@ -11,11 +11,15 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 This package makes creating drag and drop matching UI easier.
+**PACKAGE IS NOT YET READY FOR PRODUCTION**
 
 ## Features
 
 Create drag and drop UI's with few lines of code
 Useful for games and other interactive apps
+
+![](./screenshot.jpg)
+
 
 ## Getting started
 

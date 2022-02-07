@@ -68,7 +68,8 @@ class DragDropItem {
 //dragdrop action , matched or not matched
 typedef DragDropAction = void Function(DragDropItem item);
 //drag drop default child style
-final _defaultTextStyle = TextStyle(fontSize: 40);
+final _defaultTextStyle = TextStyle(fontSize: 50);
+final _matchedWidget = Text("✅", style: _defaultTextStyle);
 
 ///Drag drop widget for creating match views
 ///Input your stuffs on [items]
@@ -120,9 +121,8 @@ class _DragDropWidgetState extends State<DragDropWidget> {
                 data: item,
                 childWhenDragging: item.dragChild!,
                 feedback: item.feedbackItem!,
-                child: item.isAccepted == true
-                    ? Text("✅", style: item.defaultTextStyle)
-                    : item.dragChild!),
+                child:
+                    item.isAccepted == true ? _matchedWidget : item.dragChild!),
           );
         }).toList()),
         Column(
