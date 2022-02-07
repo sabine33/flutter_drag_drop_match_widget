@@ -11,7 +11,6 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 This package makes creating drag and drop matching UI easier.
-**PACKAGE IS NOT YET READY FOR PRODUCTION**
 
 ## Features
 
