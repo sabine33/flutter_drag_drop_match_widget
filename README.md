@@ -70,7 +70,8 @@ final items = [
 ```
 Use the widget as,
 
-```DragDropWidget(
+```
+DragDropWidget(
               items: items,
               //on  Matched event
               onMatched: (DragDropItem? item) {
