@@ -1,5 +1,4 @@
-library drag_drop_match_widget;
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DragDropItem {
@@ -40,7 +39,9 @@ class DragDropItem {
       this.childWhenDragging,
       this.isAccepted = false,
       this.defaultTextStyle}) {
-    feedbackItem = dragChild ?? Icon(iconData, size: 30, color: Colors.teal);
+    feedbackItem = Material(
+        color: Colors.transparent,
+        child: dragChild ?? Icon(iconData, size: 30, color: Colors.teal));
     dragChild = dragChild ??
         Text(key, style: TextStyle(fontSize: 20, color: Colors.red));
     dropChild = dropChild ??
@@ -95,23 +96,27 @@ class DragDropWidget extends StatefulWidget {
 
 class _DragDropWidgetState extends State<DragDropWidget> {
   //The backdrop style : after drag drop is accepted
+  bool isLoaded = false;
 
-  //list for another side for matching
-  List<DragDropItem> drop_lists = [];
   @override
   void initState() {
     super.initState();
+  }
 
-    //create drop targets by shuffling the original list
-    drop_lists = List.from(widget.items);
-    drop_lists.shuffle();
+  List<DragDropItem> clonedList() {
+    var newList = widget.items.toList();
+    newList.shuffle();
+
+    return newList;
   }
 
   @override
   Widget build(BuildContext context) {
+    // dropLists = dropList();
+
     return Material(
         child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
             children: widget.items.map((DragDropItem item) {
@@ -125,14 +130,16 @@ class _DragDropWidgetState extends State<DragDropWidget> {
                     item.isAccepted == true ? _matchedWidget : item.dragChild!),
           );
         }).toList()),
+        Spacer(),
         Column(
-            children: drop_lists.map((DragDropItem item) {
+            children: clonedList().map((DragDropItem item) {
           return DragTarget<DragDropItem>(
             onAccept: (receivedItem) {
               if (receivedItem.key == item.key) {
                 setState(() {
                   item.isAccepted = true;
                 });
+
                 print("ACCEPTED");
                 widget.onMatched(receivedItem);
               }
@@ -140,12 +147,14 @@ class _DragDropWidgetState extends State<DragDropWidget> {
             onLeave: (receivedItem) {
               print("NOT ACCEPTED");
               item.willAccept = false;
+
               widget.onMisMatched(receivedItem!);
             },
             onWillAccept: (receivedItem) {
               bool willAccept =
                   receivedItem?.key == item.key && !item.isAccepted == true;
               item.willAccept = willAccept;
+
               return willAccept;
             },
             builder: (context, acceptedItems, rejectedItem) => Container(
