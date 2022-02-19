@@ -1,16 +1,4 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-This package makes creating drag and drop matching UI easier.
+This package makes creating drag and drop UI easier. If you are planning to make an app where you need to drag & drop the matching component, this package would be helpful for you.
 
 ## Features
 
@@ -19,10 +7,30 @@ Useful for games and other interactive apps
 
 ![](./screenshot.gif)
 
+## Methods
+
+DragDropItem
+  This is the parent class. It accepts various parameters.
+
+key:
+value:
+dragChild:
+dropChild:
+iconData:
+
+Except for key and value , all fields are optional. If no dragChild/dropChild is provided, you'll get a Text widget as your drag/drop components.
+
+DragDropWidget is the base class where you provide reference to your drag drop items. It accepts 3 parameters.
+items: Collection of DragDropItem.
+onMatched: If the dragged item matched with dropped item.
+onMismatched : if the dragged item is not matched with drop items.
+
 
 ## Getting started
 
 Add the packages to pubspec and get started.
+
+drag_drop_match_widget: ^0.0.1
 
 ## Usage
 
